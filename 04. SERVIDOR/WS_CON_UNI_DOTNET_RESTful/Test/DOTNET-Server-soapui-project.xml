@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="8085a95d-6263-424c-8406-74910d0a3e48" activeEnvironment="Default" name="DOTNET_Server" resourceRoot="" soapui-version="5.10.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="90d263b6-78ef-4948-8ec7-ce5e08c1e4df" wsaVersion="NONE" name="BasicHttpBinding_ILoginWebService_soap" type="wsdl" bindingName="{http://tempuri.org/}BasicHttpBinding_ILoginWebService_soap" soapVersion="1_1" anonymous="optional" definition="http://localhost:5052/LoginWebService.svc?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:5052/LoginWebService.svc?wsdl"><con:part><con:url>http://localhost:5052/LoginWebService.svc?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://tempuri.org/" name="ILoginWebService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://tempuri.org/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <xsd:element name="Login">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="username" type="xsd:string"/>
+            <xsd:element minOccurs="0" maxOccurs="1" name="password" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="LoginResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="LoginResult" type="tns:LoginResponseDTO"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="LoginResponseDTO">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ResponseDTO">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" maxOccurs="1" name="token" type="xsd:string"/>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ResponseDTO">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="estado" type="tns:EstadosEnum"/>
+          <xsd:element minOccurs="0" maxOccurs="1" name="mensaje" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="EstadosEnum">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="OK"/>
+          <xsd:enumeration value="ERROR"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ILoginWebService_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login"/>
+  </wsdl:message>
+  <wsdl:message name="ILoginWebService_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="ILoginWebService">
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:ILoginWebService_Login_InputMessage"/>
+      <wsdl:output message="tns:ILoginWebService_Login_OutputMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ILoginWebService_soap" type="tns:ILoginWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/ILoginWebService/Login" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ILoginWebService">
+    <wsdl:port name="BasicHttpBinding_ILoginWebService_soap" binding="tns:BasicHttpBinding_ILoginWebService_soap">
+      <soap:address location="http://localhost:5052/LoginWebService.svc"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:5052/LoginWebService.svc</con:endpoint></con:endpoints><con:operation id="1f21d51a-79d5-46fa-9c1f-117186a456fb" isOneWay="false" action="http://tempuri.org/ILoginWebService/Login" name="Login" bindingOperationName="Login" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="111a75bf-6fa5-47f0-9a3b-ea33af73307e" name="Successful Login"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5052/LoginWebService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:Login>\r
+         <!--Optional:-->\r
+         <tem:username>user</tem:username>\r
+         <!--Optional:-->\r
+         <tem:password>1234</tem:password>\r
+      </tem:Login>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/ILoginWebService/Login"/><con:wsrmConfig version="1.2"/></con:call><con:call id="3999c023-576c-4eaa-9645-2eb4145e482b" name="Invalid Login"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5052/LoginWebService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:Login>
+         <!--Optional:-->
+         <tem:username>user</tem:username>
+         <!--Optional:-->
+         <tem:password>12345</tem:password>
+      </tem:Login>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/ILoginWebService/Login"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="372c5c00-1ca4-42ee-9390-adbc21c50381" wsaVersion="NONE" name="BasicHttpBinding_IConverterWebService_soap" type="wsdl" bindingName="{http://tempuri.org/}BasicHttpBinding_IConverterWebService_soap" soapVersion="1_1" anonymous="optional" definition="http://localhost:5052/ConverterWebService.svc?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:5052/ConverterWebService.svc?wsdl"><con:part><con:url>http://localhost:5052/ConverterWebService.svc?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://tempuri.org/" name="IConverterWebService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://tempuri.org/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <xsd:element name="Convert">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="token" type="xsd:string"/>
+            <xsd:element minOccurs="0" maxOccurs="1" name="type" type="xsd:string"/>
+            <xsd:element minOccurs="1" maxOccurs="1" name="value" type="xsd:double"/>
+            <xsd:element minOccurs="0" maxOccurs="1" name="from" type="xsd:string"/>
+            <xsd:element minOccurs="0" maxOccurs="1" name="to" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConvertResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="ConvertResult" type="tns:ConverterResponseDTO"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ConverterResponseDTO">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ResponseDTO">
+            <xsd:sequence>
+              <xsd:element minOccurs="1" maxOccurs="1" name="resultado" type="xsd:double"/>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ResponseDTO">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="estado" type="tns:EstadosEnum"/>
+          <xsd:element minOccurs="0" maxOccurs="1" name="mensaje" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="EstadosEnum">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="OK"/>
+          <xsd:enumeration value="ERROR"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IConverterWebService_Convert_InputMessage">
+    <wsdl:part name="parameters" element="tns:Convert"/>
+  </wsdl:message>
+  <wsdl:message name="IConverterWebService_Convert_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConvertResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="IConverterWebService">
+    <wsdl:operation name="Convert">
+      <wsdl:input message="tns:IConverterWebService_Convert_InputMessage"/>
+      <wsdl:output message="tns:IConverterWebService_Convert_OutputMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IConverterWebService_soap" type="tns:IConverterWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Convert">
+      <soap:operation soapAction="http://tempuri.org/IConverterWebService/Convert" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IConverterWebService">
+    <wsdl:port name="BasicHttpBinding_IConverterWebService_soap" binding="tns:BasicHttpBinding_IConverterWebService_soap">
+      <soap:address location="http://localhost:5052/ConverterWebService.svc"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:5052/ConverterWebService.svc</con:endpoint></con:endpoints><con:operation id="be4c19ff-8ffb-4c8a-b266-ddb7f70d903e" isOneWay="false" action="http://tempuri.org/IConverterWebService/Convert" name="Convert" bindingOperationName="Convert" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="3949e0e5-e493-4e83-97bd-294fd5d79b13" name="Longitud"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5052/ConverterWebService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:Convert>\r
+         <!--Optional:-->\r
+         <tem:token>393faee9-6e47-4565-ac51-681ad1d72e81</tem:token>\r
+         <!--Optional:-->\r
+         <tem:type>Longitud</tem:type>\r
+         <tem:value>1533</tem:value>\r
+         <!--Optional:-->\r
+         <tem:from>m</tem:from>\r
+         <!--Optional:-->\r
+         <tem:to>cm</tem:to>\r
+      </tem:Convert>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IConverterWebService/Convert"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="4f13c208-64aa-4655-b0ea-3040368bd1c8" wsaVersion="NONE" name="BasicHttpBinding_ICatalogWebService_soap" type="wsdl" bindingName="{http://tempuri.org/}BasicHttpBinding_ICatalogWebService_soap" soapVersion="1_1" anonymous="optional" definition="http://localhost:5052/CatalogWebService.svc?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:5052/CatalogWebService.svc?wsdl"><con:part><con:url>http://localhost:5052/CatalogWebService.svc?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://tempuri.org/" name="ICatalogWebService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://tempuri.org/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <xsd:element name="GetCatalog">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="type" type="xsd:string"/>
+            <xsd:element minOccurs="0" maxOccurs="1" name="token" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetCatalogResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetCatalogResult" type="tns:CatalogResponseDTO"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="CatalogResponseDTO">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns:ResponseDTO">
+            <xsd:sequence>
+              <xsd:element minOccurs="0" maxOccurs="1" name="resultado" nillable="true" type="tns:ArrayOfString"/>
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ResponseDTO">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="estado" type="tns:EstadosEnum"/>
+          <xsd:element minOccurs="0" maxOccurs="1" name="mensaje" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfString">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="string" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="EstadosEnum">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="OK"/>
+          <xsd:enumeration value="ERROR"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICatalogWebService_GetCatalog_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCatalog"/>
+  </wsdl:message>
+  <wsdl:message name="ICatalogWebService_GetCatalog_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCatalogResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="ICatalogWebService">
+    <wsdl:operation name="GetCatalog">
+      <wsdl:input message="tns:ICatalogWebService_GetCatalog_InputMessage"/>
+      <wsdl:output message="tns:ICatalogWebService_GetCatalog_OutputMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ICatalogWebService_soap" type="tns:ICatalogWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetCatalog">
+      <soap:operation soapAction="http://tempuri.org/ICatalogWebService/GetCatalog" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ICatalogWebService">
+    <wsdl:port name="BasicHttpBinding_ICatalogWebService_soap" binding="tns:BasicHttpBinding_ICatalogWebService_soap">
+      <soap:address location="http://localhost:5052/CatalogWebService.svc"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:5052/CatalogWebService.svc</con:endpoint></con:endpoints><con:operation id="5b40721f-cf25-442d-aa6e-bbad31ee01d3" isOneWay="false" action="http://tempuri.org/ICatalogWebService/GetCatalog" name="GetCatalog" bindingOperationName="GetCatalog" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0b0a9a90-a549-464d-95a0-13db5192b9af" name="Longitud"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5052/CatalogWebService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:GetCatalog>\r
+         <!--Optional:-->\r
+         <tem:type>Longitud</tem:type>\r
+         <!--Optional:-->\r
+         <tem:token>393faee9-6e47-4565-ac51-681ad1d72e81</tem:token>\r
+      </tem:GetCatalog>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/ICatalogWebService/GetCatalog"/><con:wsrmConfig version="1.2"/></con:call><con:call id="f451e22c-c696-492b-b876-e7e2e9233885" name="Area"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5052/CatalogWebService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:GetCatalog>\r
+         <!--Optional:-->\r
+         <tem:type>Area</tem:type>\r
+         <!--Optional:-->\r
+         <tem:token>393faee9-6e47-4565-ac51-681ad1d72e81</tem:token>\r
+      </tem:GetCatalog>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/ICatalogWebService/GetCatalog"/><con:wsrmConfig version="1.2"/></con:call><con:call id="c8bd1400-8367-4c45-8f20-daa33a022d1c" name="Masa"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5052/CatalogWebService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:GetCatalog>\r
+         <!--Optional:-->\r
+         <tem:type>Masa</tem:type>\r
+         <!--Optional:-->\r
+         <tem:token>393faee9-6e47-4565-ac51-681ad1d72e81</tem:token>\r
+      </tem:GetCatalog>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/ICatalogWebService/GetCatalog"/><con:wsrmConfig version="1.2"/></con:call><con:call id="2677aa7f-facf-4034-bd3c-a7b983db1d20" name="Tiempo"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5052/CatalogWebService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:GetCatalog>\r
+         <!--Optional:-->\r
+         <tem:type>Tiempo</tem:type>\r
+         <!--Optional:-->\r
+         <tem:token>393faee9-6e47-4565-ac51-681ad1d72e81</tem:token>\r
+      </tem:GetCatalog>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/ICatalogWebService/GetCatalog"/><con:wsrmConfig version="1.2"/></con:call><con:call id="c3cf0bd2-a7ee-472a-82d4-a15e2bc4ed18" name="Temperatura"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5052/CatalogWebService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:GetCatalog>\r
+         <!--Optional:-->\r
+         <tem:type>Temperatura</tem:type>\r
+         <!--Optional:-->\r
+         <tem:token>393faee9-6e47-4565-ac51-681ad1d72e81</tem:token>\r
+      </tem:GetCatalog>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/ICatalogWebService/GetCatalog"/><con:wsrmConfig version="1.2"/></con:call><con:call id="34137de5-6868-4cce-b856-d9290f09c788" name="Volumen"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5052/CatalogWebService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:GetCatalog>\r
+         <!--Optional:-->\r
+         <tem:type>Volumen</tem:type>\r
+         <!--Optional:-->\r
+         <tem:token>393faee9-6e47-4565-ac51-681ad1d72e81</tem:token>\r
+      </tem:GetCatalog>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/ICatalogWebService/GetCatalog"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
