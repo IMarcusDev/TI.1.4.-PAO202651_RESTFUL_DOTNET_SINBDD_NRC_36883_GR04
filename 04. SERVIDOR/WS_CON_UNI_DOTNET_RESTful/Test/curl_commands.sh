@@ -1,6 +1,6 @@
 # Login
 curl \
-  -X POST "http://localhost:5013/WS_CON_UNI_JAVA_RESTFUL/api/login" \
+  -X POST "http://localhost:5013/login" \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
   -d '{
@@ -10,10 +10,10 @@ curl \
 
 # Convert
 curl \
-  -X POST "http://localhost:5013/WS_CON_UNI_JAVA_RESTFUL/api/converter" \
+  -X POST "http://localhost:5013/converter" \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
-  -H "Authorization: 807dfd86-9a97-47fd-a88c-04d73129273a" \
+  -H "Authorization: f60b74ed-39a4-463b-a0ac-110b001aa6ae" \
   -d '{
     "type": "Longitud",
     "value": "1234",
@@ -23,7 +23,7 @@ curl \
 
 # Get Catalog
 curl \
-  -X GET "http://localhost:5013/WS_CON_UNI_JAVA_RESTFUL/api/catalog/longitud" \
+  -X GET "http://localhost:5013/catalog/longitud" \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
-  -H "Authorization: 818abc6d-5673-4ce7-bf50-8676251ecf8b"
+  -H "Authorization: f60b74ed-39a4-463b-a0ac-110b001aa6ae"
