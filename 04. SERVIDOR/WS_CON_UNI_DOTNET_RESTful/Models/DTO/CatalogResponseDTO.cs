@@ -1,6 +1,6 @@
-﻿using WS_CON_UNI_DOTNET_SOAP.Models.Enums;
+﻿using WS_CON_UNI_DOTNET_RESTful.Models.Enums;
 
-namespace WS_CON_UNI_DOTNET_SOAP.Models.DTO
+namespace WS_CON_UNI_DOTNET_RESTful.Models.DTO
 {
   public class CatalogResponseDTO : ResponseDTO
   {

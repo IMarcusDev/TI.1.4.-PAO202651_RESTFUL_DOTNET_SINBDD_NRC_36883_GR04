@@ -1,6 +1,6 @@
-﻿using WS_CON_UNI_DOTNET_SOAP.Models.Interfaces;
+﻿using WS_CON_UNI_DOTNET_RESTful.Models.Interfaces;
 
-namespace WS_CON_UNI_DOTNET_SOAP.Models.Data
+namespace WS_CON_UNI_DOTNET_RESTful.Models.Data
 {
   public class TemperaturaModel : IDataConverter
   {

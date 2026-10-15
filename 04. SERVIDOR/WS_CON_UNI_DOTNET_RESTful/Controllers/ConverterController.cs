@@ -1,7 +1,7 @@
-﻿using WS_CON_UNI_DOTNET_SOAP.Models.Data;
-using WS_CON_UNI_DOTNET_SOAP.Models.Interfaces;
+﻿using WS_CON_UNI_DOTNET_RESTful.Models.Data;
+using WS_CON_UNI_DOTNET_RESTful.Models.Interfaces;
 
-namespace WS_CON_UNI_DOTNET_SOAP.Controllers
+namespace WS_CON_UNI_DOTNET_RESTful.Controllers
 {
   public class ConverterController
   {

@@ -1,7 +1,7 @@
-﻿using WS_CON_UNI_DOTNET_SOAP.Models.Interfaces;
-using WS_CON_UNI_DOTNET_SOAP.Services;
+﻿using WS_CON_UNI_DOTNET_RESTful.Models.Interfaces;
+using WS_CON_UNI_DOTNET_RESTful.Services;
 
-namespace WS_CON_UNI_DOTNET_SOAP.Models.Repositories
+namespace WS_CON_UNI_DOTNET_RESTful.Models.Repositories
 {
   public class LoginImplRepository : LoginRepository
   {

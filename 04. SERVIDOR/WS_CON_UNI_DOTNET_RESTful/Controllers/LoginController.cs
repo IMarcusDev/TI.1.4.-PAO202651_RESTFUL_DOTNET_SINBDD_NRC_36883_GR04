@@ -1,19 +1,19 @@
-﻿using WS_CON_UNI_DOTNET_SOAP.Models.Interfaces;
-using WS_CON_UNI_DOTNET_SOAP.Models.Repositories;
-using WS_CON_UNI_DOTNET_SOAP.Services;
+﻿using WS_CON_UNI_DOTNET_RESTful.Models.Interfaces;
+using WS_CON_UNI_DOTNET_RESTful.Models.Repositories;
+using WS_CON_UNI_DOTNET_RESTful.Services;
 
-namespace WS_CON_UNI_DOTNET_SOAP.Controllers
+namespace WS_CON_UNI_DOTNET_RESTful.Controllers
 {
   public class LoginController
   {
-    public static string login(string username, string password)
+    public static string Login(string username, string password)
     {
       LoginRepository repository = new LoginImplRepository();
     
       return repository.ValidateCredentials(username, password);
     }
   
-    public static bool validateUser(string token)
+    public static bool ValidateUser(string token)
     {
       return TokenService.ValidateToken(token);
     }

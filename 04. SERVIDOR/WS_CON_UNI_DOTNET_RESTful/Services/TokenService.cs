@@ -1,6 +1,6 @@
 ﻿using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace WS_CON_UNI_DOTNET_SOAP.Services
+namespace WS_CON_UNI_DOTNET_RESTful.Services
 {
   public class TokenService
   {
