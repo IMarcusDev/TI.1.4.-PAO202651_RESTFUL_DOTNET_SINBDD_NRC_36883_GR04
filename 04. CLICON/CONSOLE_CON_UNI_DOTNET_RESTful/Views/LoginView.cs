@@ -1,10 +1,7 @@
-﻿using CONSOLE_CON_UNI_DOTNET_SOAP.Controllers;
-using CONSOLE_CON_UNI_DOTNET_SOAP.Models.HTTP;
+﻿using CONSOLE_CON_UNI_DOTNET_RESTful.Models.DTO;
+using CONSOLE_CON_UNI_DOTNET_RESTful.Models.Enums;
+using CONSOLE_CON_UNI_DOTNET_SOAP.Controllers;
 using CONSOLE_CON_UNI_DOTNET_SOAP.Views.Utils;
-using LoginServiceRef;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CONSOLE_CON_UNI_DOTNET_SOAP.Views
 {
@@ -22,7 +19,7 @@ namespace CONSOLE_CON_UNI_DOTNET_SOAP.Views
       MessagesUtils.PrintMessage("Password: ");
       string password = Console.ReadLine() ?? string.Empty;
 
-      LoginResponseDTO? res = ctrl.Login(username, password);
+      LoginResponseDTO? res = ctrl.LoginAsync(username, password).Result;
 
       if (res is null)
       {

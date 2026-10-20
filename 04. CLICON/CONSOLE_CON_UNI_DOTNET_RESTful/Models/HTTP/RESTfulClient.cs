@@ -7,7 +7,7 @@ namespace CONSOLE_CON_UNI_DOTNET_RESTful.Models.HTTP
 {
   internal class RESTfulClient
   {
-    private string baseUrl = "http://localhost:8080/WS_CON_UNI_JAVA_RESTFUL/api/";
+    private string baseUrl = "http://localhost:5000/";
     private HttpClient http;
 
     public RESTfulClient()
@@ -69,7 +69,6 @@ namespace CONSOLE_CON_UNI_DOTNET_RESTful.Models.HTTP
           baseUrl + endpoint
       );
 
-      request.Headers.Add("Content-Type", "application/json");
       request.Headers.Add("Authorization", token);
       request.Headers.Add("Accept", "application/json");
 
@@ -91,7 +90,6 @@ namespace CONSOLE_CON_UNI_DOTNET_RESTful.Models.HTTP
           baseUrl + endpoint
       );
 
-      request.Headers.Add("Content-Type", "application/json");
       request.Headers.Add("Accept", "application/json");
 
       request.Content = new StringContent(

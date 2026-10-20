@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CONSOLE_CON_UNI_DOTNET_RESTful.Models.DTO;
+using CONSOLE_CON_UNI_DOTNET_RESTful.Models.Enums;
+using CONSOLE_CON_UNI_DOTNET_SOAP.Controllers;
+using CONSOLE_CON_UNI_DOTNET_SOAP.Models.Enums;
+using CONSOLE_CON_UNI_DOTNET_SOAP.Views.Utils;
+
+using System.Globalization;
 
 namespace CONSOLE_CON_UNI_DOTNET_SOAP.Views
 {
-  using CatalogServiceRef;
-  using CONSOLE_CON_UNI_DOTNET_SOAP.Controllers;
-  using CONSOLE_CON_UNI_DOTNET_SOAP.Models.Enums;
-  using CONSOLE_CON_UNI_DOTNET_SOAP.Views.Utils;
-  using ConverterServiceRef;
-  using System;
-  using System.Collections.Generic;
-  using System.Globalization;
-
   internal class ConverterView
   {
     public static void ShowTypes()
@@ -82,16 +77,16 @@ namespace CONSOLE_CON_UNI_DOTNET_SOAP.Views
 
       CatalogController ctrl = new CatalogController(type);
 
-      CatalogResponseDTO? dto = ctrl.GetCatalog();
+      CatalogResponseDTO? dto = ctrl.GetCatalogAsync().Result;
 
-      if (dto?.estado == CatalogServiceRef.EstadosEnum.ERROR)
+      if (dto?.estado == EstadosEnum.ERROR)
       {
         return;
       }
 
       MessagesUtils.PrintMessage(dto?.mensaje ?? string.Empty);
 
-      List<string> res = dto?.resultado ?? [];
+      List<string> res = dto.GetResultado().ToList() ?? [];
 
       foreach (string unidad in res)
       {
@@ -110,16 +105,16 @@ namespace CONSOLE_CON_UNI_DOTNET_SOAP.Views
 
       CatalogController ctrl = new CatalogController(type);
 
-      CatalogResponseDTO? catalogDto = ctrl.GetCatalog();
+      CatalogResponseDTO? catalogDto = ctrl.GetCatalogAsync().Result;
 
-      if (catalogDto?.estado == CatalogServiceRef.EstadosEnum.ERROR)
+      if (catalogDto?.estado == EstadosEnum.ERROR)
       {
         return;
       }
 
       MessagesUtils.PrintMessage(catalogDto?.mensaje ?? string.Empty);
 
-      List<string> unidades = catalogDto?.resultado ?? [];
+      List<string> unidades = catalogDto?.GetResultado().ToList() ?? [];
 
       foreach (string unidad in unidades)
       {
@@ -160,15 +155,15 @@ namespace CONSOLE_CON_UNI_DOTNET_SOAP.Views
 
       ConversorController conCtrl = new ConversorController(type);
 
-      ConverterResponseDTO? dto = conCtrl.MakeConversion(value, from, to);
+      ConversorResponseDTO? dto = conCtrl.MakeConversionAsync(value, from, to).Result;
 
       MessagesUtils.PrintMessage(
-          dto?.estado == ConverterServiceRef.EstadosEnum.OK
+          dto?.estado == EstadosEnum.OK
               ? dto.mensaje ?? string.Empty
               : $"ERROR: {dto?.mensaje}");
 
       MessagesUtils.PrintMessage(
-          Convert.ToString(dto?.resultado, CultureInfo.InvariantCulture)
+          Convert.ToString(dto?.GetResultado(), CultureInfo.InvariantCulture)
           ?? string.Empty);
     }
 

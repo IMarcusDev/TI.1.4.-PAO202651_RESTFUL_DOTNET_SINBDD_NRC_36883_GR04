@@ -1,34 +1,54 @@
-﻿using CONSOLE_CON_UNI_DOTNET_SOAP.Models.Enums;
+﻿using CONSOLE_CON_UNI_DOTNET_RESTful.Models.DTO;
+using CONSOLE_CON_UNI_DOTNET_RESTful.Models.Enums;
+using CONSOLE_CON_UNI_DOTNET_RESTful.Models.HTTP;
+using CONSOLE_CON_UNI_DOTNET_SOAP.Models.Enums;
 using CONSOLE_CON_UNI_DOTNET_SOAP.Models.HTTP;
-using ConverterServiceRef;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json;
 
 namespace CONSOLE_CON_UNI_DOTNET_SOAP.Controllers
 {
   internal class ConversorController
   {
-    private TypesEnum type;
-    private ConversorHTTP http;
+    private readonly TypesEnum type;
+    private readonly RESTfulClient client;
 
     public ConversorController(TypesEnum type)
     {
       this.type = type;
-      this.http = new ConversorHTTP();
+      this.client = new RESTfulClient();
     }
 
-    public ConverterResponseDTO? MakeConversion(double value, string from, string to)
+    public async Task<ConversorResponseDTO> MakeConversionAsync(
+        double value,
+        string from,
+        string to)
     {
-      ConverterResponseDTO? dto = this.http.Convert(
-        ConfigHTTP.token,
-        this.type.ToString(),
-        value,
-        from,
-        to
-      ).Result;
+      var body = new
+      {
+        type = this.type.ToString(),
+        value = value,
+        from = from,
+        to = to
+      };
 
-      return dto;
+      try
+      {
+        string json = await this.client.PostAsync(
+            EndpointsEnum.converter,
+            JsonSerializer.Serialize(body),
+            ConfigHTTP.token
+        );
+
+        return ConversorResponseDTO.FromJSON(json);
+      }
+      catch (Exception e)
+      {
+        return new ConversorResponseDTO(
+            EstadosEnum.ERROR,
+            "Error al realizar conversión: " + e.Message,
+            0
+        );
+      }
     }
   }
 }
