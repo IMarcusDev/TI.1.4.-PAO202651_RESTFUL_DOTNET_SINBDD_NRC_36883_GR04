@@ -1,0 +1,87 @@
+@model ConversionVista
+@{
+    ViewData["Titulo"] = "Convertir unidades";
+}
+<main class="contenido">
+    <h1>Convertir unidades</h1>
+    @if (!string.IsNullOrEmpty(Model.Error))
+    {
+        <p class="mensaje-error" role="alert">@Model.Error</p>
+    }
+    <form id="formulario-conversion" class="tarjeta tarjeta-conversion" method="post"
+          action="~/conversion" asp-antiforgery="true" novalidate>
+        <div class="fila-campos">
+            <div>
+                <label for="magnitud">Categoría</label>
+                <select id="magnitud" name="magnitud">
+                    @if (string.IsNullOrEmpty(Model.Magnitud))
+                    {
+                        <option value="" selected>Seleccione una magnitud</option>
+                    }
+                    @foreach (var m in Model.Magnitudes)
+                    {
+                        <option value="@m.Valor" selected="@(m.Valor == Model.Magnitud)">@m.Texto</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <label for="desde">Desde</label>
+                <select id="desde" name="desde">
+                    @if (Model.Unidades.Count == 0)
+                    {
+                        <option value="">Sin unidades</option>
+                    }
+                    @foreach (var u in Model.Unidades)
+                    {
+                        <option value="@u.Valor" selected="@(u.Valor == Model.Desde)">@u.Texto (@u.Valor)</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <label for="hacia">Hacia</label>
+                <select id="hacia" name="hacia">
+                    @if (Model.Unidades.Count == 0)
+                    {
+                        <option value="">Sin unidades</option>
+                    }
+                    @foreach (var u in Model.Unidades)
+                    {
+                        <option value="@u.Valor" selected="@(u.Valor == Model.Hacia)">@u.Texto (@u.Valor)</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="campo-valor">
+            <label for="valor">Valor</label>
+            <input type="text" id="valor" name="valor" value="@Model.Valor"
+                   inputmode="decimal" autocomplete="off">
+        </div>
+        <button type="submit" name="accion" value="convertir" class="boton">Convertir</button>
+        <noscript>
+            <button type="submit" name="accion" value="cambiar" class="boton boton-secundario">Actualizar unidades</button>
+        </noscript>
+    </form>
+    @if (!string.IsNullOrEmpty(Model.Resultado))
+    {
+        <section class="resultado" aria-live="polite">
+            <p class="resultado-etiqueta">Resultado</p>
+            <p class="resultado-valor">@Model.Resultado</p>
+        </section>
+    }
+</main>
+@section Scripts {
+    <script>
+        // Al cambiar la magnitud se recargan sus unidades sin convertir.
+        (function () {
+            var formulario = document.getElementById('formulario-conversion');
+            document.getElementById('magnitud').addEventListener('change', function () {
+                var accion = document.createElement('input');
+                accion.type = 'hidden';
+                accion.name = 'accion';
+                accion.value = 'cambiar';
+                formulario.appendChild(accion);
+                formulario.submit();
+            });
+        })();
+    </script>
+}

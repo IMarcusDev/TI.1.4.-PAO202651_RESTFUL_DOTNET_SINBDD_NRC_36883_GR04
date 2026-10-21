@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Titulo"] - Conversión de Unidades Monster</title>
+    <link rel="stylesheet" href="~/css/estilos.css" asp-append-version="true">
+</head>
+<body>
+<partial name="_Cabecera" />
+@RenderBody()
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

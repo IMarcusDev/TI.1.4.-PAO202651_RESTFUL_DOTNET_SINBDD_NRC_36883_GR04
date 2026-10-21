@@ -1,0 +1,37 @@
+@model LoginVista
+@{
+    ViewData["Titulo"] = "Iniciar sesión";
+}
+<main class="contenido-centrado">
+    <section class="tarjeta tarjeta-login">
+        <h1>Iniciar sesión</h1>
+        <form method="post" action="~/login" asp-antiforgery="true" novalidate>
+            <label for="usuario">Usuario</label>
+            <input type="text" id="usuario" name="usuario" value="@Model.Usuario"
+                   autocomplete="username" autofocus>
+            <label for="clave">Contraseña</label>
+            <input type="password" id="clave" name="clave" autocomplete="current-password">
+            <button type="submit" class="boton">Ingresar</button>
+        </form>
+    </section>
+</main>
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <dialog id="dialogo-error" class="dialogo" open>
+        <h2>Error de autenticación</h2>
+        <p>@Model.Error</p>
+        <form method="dialog">
+            <button type="submit" class="boton">Aceptar</button>
+        </form>
+    </dialog>
+    <script>
+        // Se reabre como modal para oscurecer la página de fondo, como en el mockup.
+        (function () {
+            var dialogo = document.getElementById('dialogo-error');
+            if (dialogo && dialogo.showModal) {
+                dialogo.close();
+                dialogo.showModal();
+            }
+        })();
+    </script>
+}
