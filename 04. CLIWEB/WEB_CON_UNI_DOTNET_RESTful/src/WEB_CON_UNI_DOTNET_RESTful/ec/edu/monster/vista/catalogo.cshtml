@@ -1,0 +1,49 @@
+@model CatalogoVista
+@{
+    ViewData["Titulo"] = "Consultar catálogo";
+}
+<main class="contenido">
+    <h1>Consultar catálogo</h1>
+    @if (!string.IsNullOrEmpty(Model.Error))
+    {
+        <p class="mensaje-error" role="alert">@Model.Error</p>
+    }
+    <div class="catalogo">
+        <nav aria-label="Magnitudes">
+            <ul class="lista-magnitudes">
+                @foreach (var m in Model.Magnitudes)
+                {
+                    var activa = m.Valor == Model.Magnitud;
+                    <li>
+                        <a href="@Url.Content("~/catalogo")?magnitud=@Uri.EscapeDataString(m.Valor)"
+                           class="@(activa ? "activo" : "")"
+                           aria-current="@(activa ? "page" : null)">@m.Texto</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+        <table class="tabla-unidades">
+            <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Símbolo</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var u in Model.Unidades)
+            {
+                <tr>
+                    <td>@u.Texto</td>
+                    <td>@u.Valor</td>
+                </tr>
+            }
+            @if (Model.Unidades.Count == 0)
+            {
+                <tr>
+                    <td colspan="2">No hay unidades para mostrar</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</main>

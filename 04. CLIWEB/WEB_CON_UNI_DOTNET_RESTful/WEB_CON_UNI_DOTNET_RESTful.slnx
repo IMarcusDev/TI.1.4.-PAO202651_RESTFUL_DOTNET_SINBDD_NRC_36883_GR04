@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/WEB_CON_UNI_DOTNET_RESTful/WEB_CON_UNI_DOTNET_RESTful.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/WEB_CON_UNI_DOTNET_RESTful.Tests/WEB_CON_UNI_DOTNET_RESTful.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,51 @@
+@* Cabecera común. Cada página puede poner ViewData["Seccion"] (menu, conversion, catalogo) para mostrar la navegación. *@
+@{
+    var seccion = ViewData["Seccion"] as string;
+    var conSesion = !string.IsNullOrEmpty(seccion);
+    var disponible = ViewData["ServicioDisponible"] as bool? == true;
+    var textoDisponible = conSesion ? "Sesión activa" : "Servicio disponible";
+    var textoCaido = conSesion ? "Servidor no disponible" : "Servicio no disponible";
+}
+<header class="cabecera">
+    <span class="cabecera-titulo">Conversión de Unidades Monster</span>
+    @if (conSesion)
+    {
+        <nav class="cabecera-menu">
+            <a href="~/conversion" class="@(seccion == "conversion" ? "activo" : "")">Convertir</a>
+            <a href="~/catalogo" class="@(seccion == "catalogo" ? "activo" : "")">Catálogo</a>
+            <form method="post" action="~/logout" asp-antiforgery="true" class="cabecera-salir">
+                <button type="submit">Cerrar sesión</button>
+            </form>
+        </nav>
+    }
+    <span id="estado-servicio" class="estado" role="status"
+          data-url="@Url.Content("~/estado")"
+          data-texto-disponible="@textoDisponible" data-texto-caido="@textoCaido">
+        <span class="estado-punto @(disponible ? "" : "inactivo")"></span><span class="estado-texto">@(disponible ? textoDisponible : textoCaido)</span>
+    </span>
+</header>
+<script>
+    // Revisa el servidor cada 10 segundos para que el indicador cambie sin recargar la página.
+    (function () {
+        var estado = document.getElementById('estado-servicio');
+        if (!estado || !window.fetch) {
+            return;
+        }
+        var punto = estado.querySelector('.estado-punto');
+        var texto = estado.querySelector('.estado-texto');
+
+        function pintar(disponible) {
+            punto.classList.toggle('inactivo', !disponible);
+            texto.textContent = disponible ? estado.dataset.textoDisponible : estado.dataset.textoCaido;
+        }
+
+        function revisar() {
+            fetch(estado.dataset.url, { cache: 'no-store' })
+                .then(function (r) { return r.json(); })
+                .then(function (datos) { pintar(datos.disponible === true); })
+                .catch(function () { pintar(false); });
+        }
+
+        setInterval(revisar, 10000);
+    })();
+</script>
