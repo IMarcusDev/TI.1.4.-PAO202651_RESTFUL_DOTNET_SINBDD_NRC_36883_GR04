@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<RootNamespace>MOV_CON_UNI_DOTNET_RESTFUL.Pruebas</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="..\Config\*.cs" LinkBase="App\Config" />
+		<Compile Include="..\Controllers\*.cs" LinkBase="App\Controllers" />
+		<Compile Include="..\Models\data\*.cs" LinkBase="App\Models\data" />
+		<Compile Include="..\Models\DTO\*.cs" LinkBase="App\Models\DTO" />
+		<Compile Include="..\Models\Enums\*.cs" LinkBase="App\Models\Enums" />
+		<Compile Include="..\Models\Interface\*.cs" LinkBase="App\Models\Interface" />
+		<Compile Include="..\Models\Repositories\*.cs" Exclude="..\Models\Repositories\RestErrores.Red.cs" LinkBase="App\Models\Repositories" />
+		<Compile Include="..\Services\*.cs" LinkBase="App\Services" />
+		<Compile Include="..\Utils\*.cs" LinkBase="App\Utils" />
+	</ItemGroup>
+
+</Project>

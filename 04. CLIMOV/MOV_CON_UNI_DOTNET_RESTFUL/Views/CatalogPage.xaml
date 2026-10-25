@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:data="clr-namespace:MOV_CON_UNI_DOTNET_RESTFUL.Models.data"
+             x:Class="MOV_CON_UNI_DOTNET_RESTFUL.Views.CatalogPage"
+             Title="Catálogo de Unidades"
+             BackgroundColor="{StaticResource FondoApp}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cerrar sesión" Clicked="OnCerrarSesionClicked" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <VerticalStackLayout Grid.Row="0" Padding="16,20,16,8" Spacing="4">
+            <Label Text="Magnitudes disponibles"
+                   FontSize="20"
+                   TextColor="{StaticResource TextoOscuro}" />
+            <Label Text="Toque una magnitud para ver sus unidades."
+                   FontSize="14"
+                   TextColor="{StaticResource BordeCampo}" />
+        </VerticalStackLayout>
+
+        <RefreshView x:Name="CatalogoRefresh"
+                     Grid.Row="1"
+                     RefreshColor="{StaticResource MonsterPrimary}"
+                     Refreshing="OnRefreshing">
+            <CollectionView x:Name="CatalogoView"
+                            SelectionMode="None"
+                            Margin="10,0">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="data:GrupoUnidades">
+                        <Border Margin="6"
+                                Padding="16"
+                                HeightRequest="176"
+                                BackgroundColor="White"
+                                Stroke="{StaticResource BordeTarjeta}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 16">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnMagnitudTapped" />
+                            </Border.GestureRecognizers>
+                            <Grid RowDefinitions="Auto,Auto,*,Auto" RowSpacing="6">
+                                <Border Grid.Row="0"
+                                        WidthRequest="44"
+                                        HeightRequest="44"
+                                        HorizontalOptions="Start"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 22"
+                                        BackgroundColor="{StaticResource FondoApp}">
+                                    <Image Source="{Binding Icono}"
+                                           WidthRequest="24"
+                                           HeightRequest="24" />
+                                </Border>
+                                <Label Grid.Row="1"
+                                       Text="{Binding Nombre}"
+                                       FontSize="17"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource TextoOscuro}"
+                                       Margin="0,4,0,0" />
+                                <Label Grid.Row="2"
+                                       Text="{Binding Descripcion}"
+                                       FontSize="13"
+                                       MaxLines="2"
+                                       LineBreakMode="TailTruncation"
+                                       TextColor="{StaticResource BordeCampo}" />
+                                <Label Grid.Row="3"
+                                       Text="{Binding Count, StringFormat='{0} unidades  ›'}"
+                                       FontSize="13"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource MonsterPrimary}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout Padding="32,48" Spacing="8">
+                        <Label Text="No hay magnitudes para mostrar"
+                               FontSize="17"
+                               TextColor="{StaticResource TextoOscuro}"
+                               HorizontalTextAlignment="Center" />
+                        <Label Text="Deslice hacia abajo para recargar el catálogo."
+                               FontSize="14"
+                               TextColor="{StaticResource BordeCampo}"
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.Footer>
+                    <BoxView HeightRequest="16" Color="Transparent" />
+                </CollectionView.Footer>
+            </CollectionView>
+        </RefreshView>
+
+        <VerticalStackLayout x:Name="CargandoPanel"
+                             Grid.Row="1"
+                             IsVisible="False"
+                             BackgroundColor="{StaticResource FondoApp}"
+                             VerticalOptions="Fill"
+                             Padding="32,64"
+                             Spacing="12">
+            <ActivityIndicator x:Name="CargandoIndicator"
+                               Color="{StaticResource MonsterPrimary}"
+                               IsRunning="False" />
+            <Label Text="Cargando catálogo…"
+                   FontSize="15"
+                   TextColor="{StaticResource TextoOscuro}"
+                   HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+
+        <Border x:Name="ErrorPanel"
+                Grid.Row="1"
+                IsVisible="False"
+                VerticalOptions="Start"
+                Margin="16,24"
+                Padding="24"
+                BackgroundColor="White"
+                Stroke="{StaticResource BordeTarjeta}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 16">
+            <VerticalStackLayout Spacing="12">
+                <Label Text="No se pudo cargar el catálogo"
+                       FontSize="18"
+                       TextColor="{StaticResource MonsterPrimary}" />
+                <Label x:Name="ErrorLabel"
+                       FontSize="14"
+                       TextColor="{StaticResource TextoError}" />
+                <Button x:Name="ReintentarButton"
+                        Text="Reintentar"
+                        Clicked="OnReintentarClicked"
+                        BackgroundColor="{StaticResource MonsterPrimary}"
+                        TextColor="White"
+                        FontSize="16"
+                        CornerRadius="8"
+                        HeightRequest="48"
+                        Margin="0,8,0,0" />
+            </VerticalStackLayout>
+        </Border>
+
+        <Grid x:Name="HojaOverlay"
+              Grid.RowSpan="2"
+              ZIndex="100"
+              IsVisible="False">
+
+            <BoxView x:Name="HojaFondo" Color="Black" Opacity="0">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCerrarHojaTapped" />
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            <Border x:Name="Hoja"
+                    VerticalOptions="End"
+                    BackgroundColor="White"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 24,24,0,0"
+                    Padding="20,10,20,20">
+                <VerticalStackLayout Spacing="0">
+
+                    <VerticalStackLayout BackgroundColor="White">
+                        <VerticalStackLayout.GestureRecognizers>
+                            <SwipeGestureRecognizer Direction="Down" Swiped="OnHojaDeslizada" />
+                        </VerticalStackLayout.GestureRecognizers>
+
+                        <BoxView WidthRequest="40"
+                                 HeightRequest="5"
+                                 CornerRadius="3"
+                                 Color="{StaticResource BordeTarjeta}"
+                                 HorizontalOptions="Center"
+                                 Margin="0,0,0,16" />
+
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                            <Border WidthRequest="48"
+                                    HeightRequest="48"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 24"
+                                    BackgroundColor="{StaticResource FondoApp}">
+                                <Image x:Name="HojaIcono" WidthRequest="26" HeightRequest="26" />
+                            </Border>
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                <Label x:Name="HojaTitulo"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource TextoOscuro}" />
+                                <Label x:Name="HojaDescripcion"
+                                       FontSize="13"
+                                       TextColor="{StaticResource BordeCampo}" />
+                            </VerticalStackLayout>
+                            <Button Grid.Column="2"
+                                    Text="Cerrar"
+                                    Clicked="OnCerrarHojaClicked"
+                                    BackgroundColor="Transparent"
+                                    TextColor="{StaticResource MonsterPrimary}"
+                                    FontSize="15"
+                                    Padding="8,0"
+                                    VerticalOptions="Center" />
+                        </Grid>
+
+                        <Label x:Name="HojaCantidad"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource MonsterPrimary}"
+                               Margin="0,16,0,8" />
+                    </VerticalStackLayout>
+
+                    <CollectionView x:Name="HojaUnidadesView" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="data:UnidadItem">
+                                <Border Margin="0,4"
+                                        Padding="14,0"
+                                        HeightRequest="52"
+                                        BackgroundColor="{StaticResource FondoApp}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 12">
+                                    <Grid ColumnDefinitions="76,*" ColumnSpacing="12">
+                                        <Border BackgroundColor="White"
+                                                StrokeThickness="0"
+                                                StrokeShape="RoundRectangle 8"
+                                                Padding="8,4"
+                                                HorizontalOptions="Start"
+                                                VerticalOptions="Center">
+                                            <Label Text="{Binding Codigo}"
+                                                   FontSize="15"
+                                                   FontAttributes="Bold"
+                                                   TextColor="{StaticResource MonsterPrimary}" />
+                                        </Border>
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Nombre}"
+                                               FontSize="16"
+                                               TextColor="{StaticResource TextoOscuro}"
+                                               VerticalOptions="Center" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

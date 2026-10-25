@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MOV_CON_UNI_DOTNET_RESTFUL.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MOV_CON_UNI_DOTNET_RESTFUL.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.BackgroundColor="{StaticResource MonsterPrimary}"
+    Shell.TitleColor="White"
+    Shell.ForegroundColor="White"
+    Shell.TabBarBackgroundColor="White"
+    Shell.TabBarForegroundColor="{StaticResource MonsterPrimary}"
+    Shell.TabBarTitleColor="{StaticResource MonsterPrimary}"
+    Shell.TabBarUnselectedColor="{StaticResource BordeCampo}">
+
+    <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}" />
+
+    <TabBar Route="main">
+        <ShellContent Title="Conversión"
+                      Icon="tab_conversion.png"
+                      Route="conversion"
+                      ContentTemplate="{DataTemplate views:ConversionPage}" />
+        <ShellContent Title="Catálogo"
+                      Icon="tab_catalogo.png"
+                      Route="catalog"
+                      ContentTemplate="{DataTemplate views:CatalogPage}" />
+    </TabBar>
+</Shell>

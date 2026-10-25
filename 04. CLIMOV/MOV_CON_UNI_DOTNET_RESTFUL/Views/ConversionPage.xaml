@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:data="clr-namespace:MOV_CON_UNI_DOTNET_RESTFUL.Models.data"
+             x:Class="MOV_CON_UNI_DOTNET_RESTFUL.Views.ConversionPage"
+             Title="Conversión de Unidades Monster"
+             BackgroundColor="{StaticResource FondoApp}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cerrar sesión" Clicked="OnCerrarSesionClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <Style x:Key="TarjetaTitulo" TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="{StaticResource TextoOscuro}" />
+        </Style>
+
+        <Style x:Key="SelectorBorde" TargetType="Border">
+            <Setter Property="StrokeThickness" Value="0" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+            <Setter Property="Padding" Value="16,0" />
+            <Setter Property="HeightRequest" Value="56" />
+        </Style>
+
+        <Style x:Key="SelectorPicker" TargetType="Picker">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Title" Value="Seleccione la unidad" />
+        </Style>
+
+        <Style x:Key="SelectorFlecha" TargetType="Image">
+            <Setter Property="WidthRequest" Value="22" />
+            <Setter Property="HeightRequest" Value="22" />
+            <Setter Property="HorizontalOptions" Value="End" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="InputTransparent" Value="True" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="16,20,16,24">
+
+                <Label Text="¿Qué desea convertir?"
+                       FontSize="18"
+                       TextColor="{StaticResource TextoOscuro}"
+                       Margin="0,0,0,12" />
+
+                <CollectionView x:Name="MagnitudesView"
+                                SelectionMode="Single"
+                                SelectionChanged="OnMagnitudChanged"
+                                HeightRequest="50"
+                                HorizontalScrollBarVisibility="Never">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="data:MagnitudOpcion">
+                            <Border StrokeShape="RoundRectangle 24"
+                                    StrokeThickness="1"
+                                    Stroke="{StaticResource BordeTarjeta}"
+                                    BackgroundColor="White"
+                                    Padding="22,0"
+                                    HeightRequest="48">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{StaticResource MonsterPrimary}" />
+                                                <Setter Property="Stroke" Value="{StaticResource MonsterPrimary}" />
+                                                <Setter TargetName="ChipTexto" Property="Label.TextColor" Value="White" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Label x:Name="ChipTexto"
+                                       Text="{Binding Nombre}"
+                                       FontSize="16"
+                                       TextColor="{StaticResource TextoOscuro}"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Label x:Name="MagnitudActualLabel"
+                       FontSize="15"
+                       TextColor="{StaticResource BordeCampo}"
+                       Margin="0,10,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Convirtiendo: " />
+                            <Span x:Name="MagnitudActualSpan"
+                                  Text="—"
+                                  FontAttributes="Bold"
+                                  TextColor="{StaticResource MonsterPrimary}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Grid RowDefinitions="Auto,Auto,Auto" Margin="0,20,0,0">
+
+                    <Border Grid.Row="0"
+                            BackgroundColor="White"
+                            Stroke="{StaticResource BordeTarjeta}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 16"
+                            Padding="20,20,20,24"
+                            Margin="0,0,0,6">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="De" Style="{StaticResource TarjetaTitulo}" />
+                            <Entry x:Name="ValorEntry"
+                                   Placeholder="0"
+                                   PlaceholderColor="{StaticResource BordeTarjeta}"
+                                   FontSize="44"
+                                   TextColor="{StaticResource TextoOscuro}"
+                                   BackgroundColor="Transparent"
+                                   Keyboard="Numeric"
+                                   ReturnType="Done"
+                                   TextChanged="OnValorTextChanged"
+                                   Completed="OnConvertirClicked" />
+                            <Border Style="{StaticResource SelectorBorde}"
+                                    BackgroundColor="{StaticResource FondoApp}"
+                                    Margin="0,8,0,0">
+                                <Grid>
+                                    <Picker x:Name="OrigenPicker"
+                                            Style="{StaticResource SelectorPicker}"
+                                            TextColor="{StaticResource TextoOscuro}"
+                                            TitleColor="{StaticResource BordeCampo}"
+                                            SelectedIndexChanged="OnUnidadChanged" />
+                                    <Image Source="ic_chevron.png" Style="{StaticResource SelectorFlecha}" />
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <ImageButton x:Name="InvertirButton"
+                                 Grid.Row="1"
+                                 ZIndex="10"
+                                 Source="ic_swap.png"
+                                 Clicked="OnInvertirClicked"
+                                 BackgroundColor="White"
+                                 BorderColor="{StaticResource BordeTarjeta}"
+                                 BorderWidth="1"
+                                 CornerRadius="28"
+                                 Padding="14"
+                                 WidthRequest="56"
+                                 HeightRequest="56"
+                                 Margin="0,-28"
+                                 HorizontalOptions="Center"
+                                 SemanticProperties.Description="Invertir unidades" />
+
+                    <Border Grid.Row="2"
+                            BackgroundColor="{StaticResource MonsterPrimary}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 16"
+                            Padding="20,28,20,16"
+                            Margin="0,6,0,0">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="A" FontSize="16" TextColor="White" />
+                            <Border Style="{StaticResource SelectorBorde}"
+                                    BackgroundColor="{StaticResource CampoSobrePrimario}"
+                                    Margin="0,8,0,0">
+                                <Grid>
+                                    <Picker x:Name="DestinoPicker"
+                                            Style="{StaticResource SelectorPicker}"
+                                            TextColor="White"
+                                            TitleColor="{StaticResource TextoSobrePrimario}"
+                                            SelectedIndexChanged="OnUnidadChanged" />
+                                    <Image Source="ic_chevron_claro.png" Style="{StaticResource SelectorFlecha}" />
+                                </Grid>
+                            </Border>
+
+                            <Label x:Name="ResultadoLabel"
+                                   Text="—"
+                                   FontSize="44"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   LineBreakMode="CharacterWrap"
+                                   Margin="0,20,0,0" />
+
+                            <Label x:Name="DetalleLabel"
+                                   Text="Ingrese un valor y pulse Convertir."
+                                   FontSize="15"
+                                   TextColor="{StaticResource TextoSobrePrimario}"
+                                   Margin="0,8,0,0" />
+
+                            <Image Source="regla.png"
+                                   Aspect="Fill"
+                                   HeightRequest="22"
+                                   Margin="0,16,0,0" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Border Grid.Row="1"
+                BackgroundColor="White"
+                Stroke="{StaticResource BordeTarjeta}"
+                StrokeThickness="1"
+                StrokeShape="Rectangle"
+                Padding="16,12,16,16">
+            <Border.Shadow>
+                <Shadow Brush="Black" Opacity="0.08" Radius="12" Offset="0,-2" />
+            </Border.Shadow>
+            <VerticalStackLayout Spacing="8">
+
+                <Label x:Name="ErrorLabel"
+                       TextColor="{StaticResource TextoError}"
+                       FontSize="14"
+                       IsVisible="False" />
+
+                <Button x:Name="ReintentarUnidadesButton"
+                        Text="Reintentar carga de unidades"
+                        Clicked="OnReintentarUnidadesClicked"
+                        IsVisible="False"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource MonsterPrimary}"
+                        BorderColor="{StaticResource MonsterPrimary}"
+                        BorderWidth="1"
+                        CornerRadius="8"
+                        HeightRequest="44" />
+
+                <Grid>
+                    <Button x:Name="ConvertirButton"
+                            Text="Convertir"
+                            Clicked="OnConvertirClicked"
+                            BackgroundColor="{StaticResource MonsterPrimary}"
+                            TextColor="White"
+                            FontSize="18"
+                            FontAttributes="Bold"
+                            CornerRadius="12"
+                            HeightRequest="58" />
+                    <ActivityIndicator x:Name="CargandoIndicator"
+                                       Color="{StaticResource MonsterPrimary}"
+                                       IsRunning="False"
+                                       IsVisible="False"
+                                       InputTransparent="True"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="Center"
+                                       WidthRequest="28"
+                                       HeightRequest="28"
+                                       Margin="0,0,18,0" />
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+    </Grid>
+</ContentPage>

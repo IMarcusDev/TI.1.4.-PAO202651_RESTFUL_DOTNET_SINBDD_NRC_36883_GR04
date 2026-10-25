@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controllers="clr-namespace:MOV_CON_UNI_DOTNET_RESTFUL.Controllers"
+             x:Class="MOV_CON_UNI_DOTNET_RESTFUL.Views.LoginPage"
+             Title="Conversión de Unidades Monster"
+             BackgroundColor="{StaticResource FondoApp}">
+
+    <ContentPage.Resources>
+        <Style x:Key="CampoLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="{StaticResource TextoOscuro}" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+        </Style>
+
+        <Style x:Key="CampoBorde" TargetType="Border">
+            <Setter Property="Stroke" Value="{StaticResource BordeCampo}" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 8" />
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="HeightRequest" Value="56" />
+        </Style>
+
+        <Style x:Key="CampoEntry" TargetType="Entry">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="{StaticResource TextoOscuro}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid Padding="24">
+
+        <Border BackgroundColor="White"
+                Stroke="{StaticResource BordeTarjeta}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 16"
+                Padding="28,32"
+                VerticalOptions="Center">
+
+            <VerticalStackLayout>
+
+                <Label Text="Iniciar sesión"
+                       FontSize="32"
+                       TextColor="{StaticResource MonsterPrimary}"
+                       Margin="0,0,0,28" />
+
+                <Label Text="Usuario" Style="{StaticResource CampoLabel}" />
+                <Border Style="{StaticResource CampoBorde}" Margin="0,0,0,20">
+                    <Entry x:Name="UsernameEntry"
+                           Style="{StaticResource CampoEntry}"
+                           MaxLength="{x:Static controllers:LoginController.MaxUsuario}"
+                           IsSpellCheckEnabled="False"
+                           IsTextPredictionEnabled="False"
+                           ReturnType="Next"
+                           Completed="OnUsuarioCompleted" />
+                </Border>
+
+                <Label Text="Contraseña" Style="{StaticResource CampoLabel}" />
+                <Border Style="{StaticResource CampoBorde}">
+                    <Entry x:Name="PasswordEntry"
+                           IsPassword="True"
+                           Style="{StaticResource CampoEntry}"
+                           MaxLength="{x:Static controllers:LoginController.MaxPassword}"
+                           ReturnType="Go"
+                           Completed="OnIngresarClicked" />
+                </Border>
+
+                <Label x:Name="ErrorLabel"
+                       TextColor="{StaticResource TextoError}"
+                       FontSize="14"
+                       IsVisible="False"
+                       Margin="0,12,0,0" />
+
+                <Button x:Name="IngresarButton"
+                        Text="Ingresar"
+                        Clicked="OnIngresarClicked"
+                        BackgroundColor="{StaticResource MonsterPrimary}"
+                        TextColor="White"
+                        FontSize="18"
+                        CornerRadius="8"
+                        HeightRequest="56"
+                        Margin="0,28,0,0" />
+
+                <ActivityIndicator x:Name="CargandoIndicator"
+                                   Color="{StaticResource MonsterPrimary}"
+                                   IsRunning="False"
+                                   IsVisible="False"
+                                   Margin="0,16,0,0" />
+
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>
