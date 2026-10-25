@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>ec.edu.monster</RootNamespace>
+    <StartupObject>ec.edu.monster.App</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="ESC_CON_UNI_DOTNET_RESTful.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Dirección del servidor RESTful; se puede editar junto al .exe sin recompilar. -->
+    <None Update="servidor.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
