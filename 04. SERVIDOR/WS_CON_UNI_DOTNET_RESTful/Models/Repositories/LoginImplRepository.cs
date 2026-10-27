@@ -27,7 +27,7 @@ namespace WS_CON_UNI_DOTNET_SOAP.Models.Repositories
       string localUsername = username;
       string? localPassword = this.users.GetValueOrDefault(username);
 
-      if (!localUsername.Equals(username) || !localPassword.Equals(password))
+      if (!localUsername.Equals(username) || localPassword == null || localPassword.Equals(password))
       {
         throw new Exception("Invalid User");
       }
