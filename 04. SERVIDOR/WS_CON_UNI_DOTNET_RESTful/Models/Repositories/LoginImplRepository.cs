@@ -1,9 +1,7 @@
 ﻿using WS_CON_UNI_DOTNET_RESTful.Models.Interfaces;
 using WS_CON_UNI_DOTNET_RESTful.Services;
-using WS_CON_UNI_DOTNET_SOAP.Models.Interfaces;
-using WS_CON_UNI_DOTNET_SOAP.Services;
 
-namespace WS_CON_UNI_DOTNET_SOAP.Models.Repositories
+namespace WS_CON_UNI_DOTNET_RESTful.Models.Repositories
 {
   public class LoginImplRepository : LoginRepository
   {
@@ -27,7 +25,7 @@ namespace WS_CON_UNI_DOTNET_SOAP.Models.Repositories
       string localUsername = username;
       string? localPassword = this.users.GetValueOrDefault(username);
 
-      if (!localUsername.Equals(username) || localPassword == null || localPassword.Equals(password))
+      if (!localUsername.Equals(username) || localPassword == null || !localPassword.Equals(password))
       {
         throw new Exception("Invalid User");
       }
